@@ -115,8 +115,10 @@ class OffKotlin {
     }
 
      private fun getOff( client: MongoClient ): Flow<Usda> = flow {
-       val collection: MongoCollection<Usda> = client.getDatabase(DB).withCodecRegistry(pojoCodecRegistry).getCollection("products", Usda::class.java)
-          collection.aggregate(pipeline).batchSize(1000).asFlow().collect {
+       val collection: MongoCollection<Usda> = client.getDatabase(DB).
+             withCodecRegistry(pojoCodecRegistry).getCollection("products", Usda::class.java)
+             
+        collection.aggregate(pipeline).batchSize(1000).asFlow().collect {
               emit( it )
           }
     }
